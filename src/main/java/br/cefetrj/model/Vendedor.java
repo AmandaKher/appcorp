@@ -1,6 +1,5 @@
 package br.cefetrj.model;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +12,10 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "vendedor")
-public class Vendedor {
+public class Vendedor extends Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String nome;
-    private String email;
-    private String telefone;
+    private int idVendedor;
     private double limiteDesconto;
     @Transient
     private List<Pedido> listaPedidos = new ArrayList<>();
@@ -28,44 +24,20 @@ public class Vendedor {
 
     }
 
-    public Vendedor(int id, String nome, String email, String telefone, double limiteDesconto) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
+    public Vendedor(Usuario usuario, Integer idVendedor, String telefone, double limiteDesconto) {
+        super(usuario.getIdPessoa(), usuario.getNome(), usuario.getDataNascimento(), usuario.getCpf(),
+                usuario.getIdUsuario(), usuario.getEmail(), usuario.getSenha(), usuario.getPapel());
+
+        this.idVendedor = idVendedor;
         this.limiteDesconto = limiteDesconto;
     }
 
-    public int getId() {
-        return id;
+    public int getIdVendedor() {
+        return idVendedor;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setIdVendedor(int idVendedor) {
+        this.idVendedor = idVendedor;
     }
 
     public double getLimiteDesconto() {
@@ -84,15 +56,4 @@ public class Vendedor {
         this.listaPedidos = listaPedidos;
     }
 
-    public Pedido fazerPedido(List<Produto> produtos) {
-        Pedido pedido = new Pedido(listaPedidos.size() + 1, new Date(), "Pendente", produtos);
-        listaPedidos.add(pedido);
-        System.out.println("Pedido realizado com sucesso!");
-        return pedido;
-    }
-
-    public List<Produto> consultarEstoque(List<Produto> estoque) {
-        System.out.println("Consultando estoque...");
-        return estoque;
-    }
 }

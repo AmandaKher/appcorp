@@ -1,5 +1,7 @@
 package br.cefetrj.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,39 +10,28 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente extends Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String nome;
-    private String cpf;
+    private Integer idCliente;
     private String telefone;
 
     public Cliente() {
-
+        super();
     }
 
-    public Cliente(int id, String nome, String cpf, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
+    public Cliente(Pessoa pessoa, Integer idCliente, String telefone) {
+        super(pessoa.getIdPessoa(), pessoa.getNome(), pessoa.getDataNascimento(), pessoa.getCpf());
+        this.idCliente = idCliente;
         this.telefone = telefone;
     }
 
-    public String getNome() {
-        return nome;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getTelefone() {
@@ -51,11 +42,4 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int idDeposito) {
-        this.id = idDeposito;
-    }
 }

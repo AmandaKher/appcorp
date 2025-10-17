@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -18,7 +19,7 @@ public class Pedido {
     private int idPedido;
     private Date data;
     private String status;
-    @Transient
+    @OneToMany(mappedBy = "editora", targetEntity = Produto.class)
     private List<Produto> produtos;
     private double valorTotal;
 
