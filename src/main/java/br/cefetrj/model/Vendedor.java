@@ -3,49 +3,25 @@ package br.cefetrj.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vendedor")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
 public class Vendedor extends Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idVendedor;
-    private double limiteDesconto;
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "vendedor_pedido", // nome da tabela intermediária
+            joinColumns = @JoinColumn(name = "vendedor_id"), // FK para Aluno
+            inverseJoinColumns = @JoinColumn(name = "pedido_id")) // FK para Curso
     private List<Pedido> listaPedidos = new ArrayList<>();
 
     public Vendedor() {
 
     }
 
-    public Vendedor(Usuario usuario, Integer idVendedor, String telefone, double limiteDesconto) {
-        super(usuario.getIdPessoa(), usuario.getNome(), usuario.getDataNascimento(), usuario.getCpf(),
-                usuario.getIdUsuario(), usuario.getEmail(), usuario.getSenha(), usuario.getPapel());
-
-        this.idVendedor = idVendedor;
-        this.limiteDesconto = limiteDesconto;
-    }
-
-    public int getIdVendedor() {
-        return idVendedor;
-    }
-
-    public void setIdVendedor(int idVendedor) {
-        this.idVendedor = idVendedor;
-    }
-
-    public double getLimiteDesconto() {
-        return limiteDesconto;
-    }
-
-    public void setLimiteDesconto(double limiteDesconto) {
-        this.limiteDesconto = limiteDesconto;
+    public Vendedor(Usuario usuario) {
+        super(usuario.getNome(), usuario.getDataNascimento(), usuario.getCpf(),
+                usuario.getEmail(), usuario.getSenha(), usuario.getPapel());
     }
 
     public List<Pedido> getListaPedidos() {

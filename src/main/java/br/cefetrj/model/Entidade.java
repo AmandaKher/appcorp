@@ -8,10 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
 
 @MappedSuperclass
-@Table(name = "entidade")
 public class Entidade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

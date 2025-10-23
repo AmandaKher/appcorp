@@ -1,45 +1,38 @@
 package br.cefetrj.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cliente")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
 public class Cliente extends Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idCliente;
-    private String telefone;
+    @ManyToMany
+    @JoinTable(name = "cliente_pedido", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "pedido_id"))
+    private List<Pedido> listaPedidos = new ArrayList<>();
 
     public Cliente() {
         super();
     }
 
-    public Cliente(Pessoa pessoa, Integer idCliente, String telefone) {
-        super(pessoa.getIdPessoa(), pessoa.getNome(), pessoa.getDataNascimento(), pessoa.getCpf());
-        this.idCliente = idCliente;
-        this.telefone = telefone;
+    public Cliente(Pessoa pessoa) {
+        super(pessoa.getNome(), pessoa.getDataNascimento(), pessoa.getCpf());
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public List<Pedido> getListaPedidos() {
+        return listaPedidos;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setListaPedidos(List<Pedido> listaPedidos) {
+        this.listaPedidos = listaPedidos;
     }
 
 }

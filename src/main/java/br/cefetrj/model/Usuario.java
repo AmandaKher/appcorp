@@ -1,15 +1,12 @@
 package br.cefetrj.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario extends Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idUsuario;
     private String email;
     private String senha;
     private boolean ativo;
@@ -19,21 +16,11 @@ public class Usuario extends Pessoa {
 
     }
 
-    public Usuario(Integer idPessoa, String nome, LocalDate dataNascimento, Long cpf,
-            Integer idUsuario, String email, String senha, String papel) {
-        super(idPessoa, nome, dataNascimento, cpf);
-        this.idUsuario = idUsuario;
+    public Usuario(String nome, Date dataNascimento, Long cpf,
+            String email, String senha, String papel) {
         this.email = email;
         this.senha = senha;
         this.papel = papel;
-    }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getEmail() {

@@ -1,17 +1,11 @@
 package br.cefetrj.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "produto")
-public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public class Produto extends Entidade {
     private String nome;
     private String tamanho;
     private String cor;
@@ -21,16 +15,11 @@ public class Produto {
 
     }
 
-    public Produto(int id, String nome, String tamanho, String cor, double preco) {
-        this.id = id;
+    public Produto(String nome, String tamanho, String cor, double preco) {
         this.nome = nome;
         this.tamanho = tamanho;
         this.cor = cor;
         this.preco = preco;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getNome() {
@@ -39,10 +28,6 @@ public class Produto {
 
     public double getPreco() {
         return preco;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setNome(String nome) {
