@@ -1,61 +1,38 @@
 package br.cefetrj.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cliente")
-public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String nome;
-    private String cpf;
-    private String telefone;
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
+public class Cliente extends Pessoa {
+    @ManyToMany
+    @JoinTable(name = "cliente_pedido", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "pedido_id"))
+    private List<Pedido> listaPedidos = new ArrayList<>();
 
     public Cliente() {
-
+        super();
     }
 
-    public Cliente(int id, String nome, String cpf, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
+    public Cliente(Pessoa pessoa) {
+        super(pessoa.getNome(), pessoa.getDataNascimento(), pessoa.getCpf());
     }
 
-    public String getNome() {
-        return nome;
+    public List<Pedido> getListaPedidos() {
+        return listaPedidos;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setListaPedidos(List<Pedido> listaPedidos) {
+        this.listaPedidos = listaPedidos;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int idDeposito) {
-        this.id = idDeposito;
-    }
 }

@@ -4,21 +4,24 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "pedido")
-public class Pedido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idPedido;
+public class Pedido extends Entidade {
     private Date data;
     private String status;
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "pedido_produto", // nome da tabela intermediária
+            joinColumns = @JoinColumn(name = "pedido_id"), // FK para Aluno
+            inverseJoinColumns = @JoinColumn(name = "produto_id") // FK para Curso
+    )
     private List<Produto> produtos;
     private double valorTotal;
 
@@ -26,20 +29,11 @@ public class Pedido {
 
     }
 
-    public Pedido(int idPedido, Date data, String status, List<Produto> produtos) {
-        this.idPedido = idPedido;
+    public Pedido(Date data, String status, List<Produto> produtos) {
         this.data = data;
         this.status = status;
         this.produtos = produtos;
         this.valorTotal = calcularTotal();
-    }
-
-    public int getId() {
-        return idPedido;
-    }
-
-    public void setId(int idPedido) {
-        this.idPedido = idPedido;
     }
 
     public List<Produto> getProdutos() {
