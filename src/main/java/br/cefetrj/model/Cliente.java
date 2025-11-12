@@ -1,20 +1,19 @@
 package br.cefetrj.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
 public class Cliente extends Pessoa {
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
     @ManyToMany
     @JoinTable(name = "cliente_pedido", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "pedido_id"))
     private List<Pedido> listaPedidos = new ArrayList<>();

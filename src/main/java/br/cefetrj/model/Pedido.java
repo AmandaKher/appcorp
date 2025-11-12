@@ -1,21 +1,18 @@
 package br.cefetrj.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "pedido")
 public class Pedido extends Entidade {
-    private Date data;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate data;
     private String status;
     @ManyToMany
     @JoinTable(name = "pedido_produto", // nome da tabela intermediária
@@ -29,26 +26,17 @@ public class Pedido extends Entidade {
 
     }
 
-    public Pedido(Date data, String status, List<Produto> produtos) {
+    public Pedido(LocalDate data, String status, List<Produto> produtos) {
         this.data = data;
         this.status = status;
         this.produtos = produtos;
-        this.valorTotal = calcularTotal();
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -68,11 +56,11 @@ public class Pedido extends Entidade {
         this.valorTotal = valorTotal;
     }
 
-    public double calcularTotal() {
-        valorTotal = 0;
-        for (Produto p : produtos) {
-            valorTotal += p.getPreco();
-        }
-        return valorTotal;
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

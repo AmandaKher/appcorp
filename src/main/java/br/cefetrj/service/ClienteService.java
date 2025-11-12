@@ -19,8 +19,8 @@ public class ClienteService {
         return repository.save(entidade);
     }
 
-    public void update(Cliente entidade) {
-        repository.save(entidade);
+    public Cliente update(Cliente entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

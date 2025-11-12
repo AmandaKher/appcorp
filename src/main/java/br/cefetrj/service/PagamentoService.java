@@ -19,8 +19,8 @@ public class PagamentoService {
         return repository.save(entidade);
     }
 
-    public void update(Pagamento entidade) {
-        repository.save(entidade);
+    public Pagamento update(Pagamento entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

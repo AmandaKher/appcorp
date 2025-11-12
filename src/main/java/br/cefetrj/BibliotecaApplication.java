@@ -16,11 +16,6 @@ public class BibliotecaApplication extends SpringBootServletInitializer {
         SpringApplication.run(BibliotecaApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(BibliotecaApplication.class);
-    }
-
     @EventListener(ApplicationReadyEvent.class)
     public void afterInit() throws IOException, URISyntaxException, ClassNotFoundException {
         System.out.println("Aplicação iniciada com sucesso!");

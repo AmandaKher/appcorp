@@ -19,8 +19,8 @@ public class PessoaService {
         return repository.save(entidade);
     }
 
-    public void update(Pessoa entidade) {
-        repository.save(entidade);
+    public Pessoa update(Pessoa entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

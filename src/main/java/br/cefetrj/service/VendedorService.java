@@ -19,8 +19,8 @@ public class VendedorService {
         return repository.save(entidade);
     }
 
-    public void update(Vendedor entidade) {
-        repository.save(entidade);
+    public Vendedor update(Vendedor entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

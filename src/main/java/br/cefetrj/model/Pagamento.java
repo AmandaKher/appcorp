@@ -1,6 +1,6 @@
 package br.cefetrj.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -9,14 +9,14 @@ import jakarta.persistence.Table;
 @Table(name = "pagamento")
 public class Pagamento extends Entidade {
     private double valor;
-    private Date dataPagamneto;
+    private LocalDate dataPagamneto;
     private String forma;
 
     public Pagamento() {
 
     }
 
-    public Pagamento(double valor, Date dataPagamento, String forma) {
+    public Pagamento(double valor, LocalDate dataPagamento, String forma) {
         this.valor = valor;
         this.dataPagamneto = dataPagamento;
         this.forma = forma;
@@ -30,11 +30,11 @@ public class Pagamento extends Entidade {
         this.valor = valor;
     }
 
-    public Date getDataPagamento() {
+    public LocalDate getDataPagamento() {
         return dataPagamneto;
     }
 
-    public void setDataPagamento(Date dataPagamento) {
+    public void setDataPagamento(LocalDate dataPagamento) {
         this.dataPagamneto = dataPagamento;
     }
 

@@ -19,8 +19,8 @@ public class ProdutoService {
         return repository.save(entidade);
     }
 
-    public void update(Produto entidade) {
-        repository.save(entidade);
+    public Produto update(Produto entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

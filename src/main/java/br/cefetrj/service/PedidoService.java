@@ -19,8 +19,8 @@ public class PedidoService {
         return repository.save(entidade);
     }
 
-    public void update(Pedido entidade) {
-        repository.save(entidade);
+    public Pedido update(Pedido entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

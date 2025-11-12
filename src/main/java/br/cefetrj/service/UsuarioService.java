@@ -19,8 +19,8 @@ public class UsuarioService {
         return repository.save(entidade);
     }
 
-    public void update(Usuario entidade) {
-        repository.save(entidade);
+    public Usuario update(Usuario entidade) {
+        return repository.save(entidade);
     }
 
     public void delete(Integer id) {

@@ -1,6 +1,6 @@
 package br.cefetrj.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 
@@ -16,7 +16,7 @@ public class Usuario extends Pessoa {
 
     }
 
-    public Usuario(String nome, Date dataNascimento, Long cpf,
+    public Usuario(String nome, LocalDate dataNascimento, Long cpf,
             String email, String senha, String papel) {
         this.email = email;
         this.senha = senha;

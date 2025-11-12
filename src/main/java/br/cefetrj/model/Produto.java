@@ -1,6 +1,11 @@
 package br.cefetrj.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -10,6 +15,12 @@ public class Produto extends Entidade {
     private String tamanho;
     private String cor;
     private double preco;
+    @ManyToMany
+    @JoinTable(name = "pedido_produto", // nome da tabela intermediária
+            joinColumns = @JoinColumn(name = "produto_id"), // FK para Aluno
+            inverseJoinColumns = @JoinColumn(name = "pedido_id") // FK para Curso
+    )
+    private List<Pedido> pedidos;
 
     public Produto() {
 
@@ -52,5 +63,13 @@ public class Produto extends Entidade {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }
